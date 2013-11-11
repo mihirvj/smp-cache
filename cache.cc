@@ -15,6 +15,7 @@ Cache::Cache(int s,int a,int b )
    ulong i, j;
    reads = readMisses = writes = 0; 
    writeMisses = writeBacks = currentCycle = 0;
+   inv2exc = inv2shd = mod2shd = exc2shd = shd2mod = inv2mod = exc2mod = own2mod = mod2own = shd2inv = c2c = interventions = invalidations = flushCount = 0;
 
    size       = (ulong)(s);
    lineSize   = (ulong)(b);
@@ -157,10 +158,26 @@ cacheLine *Cache::fillLine(ulong addr)
 }
 
 void Cache::printStats()
-{ 
-	printf("===== Simulation results      =====\n");
-	/****print out the rest of statistics here.****/
-	/****follow the ouput file format**************/
+{
+cout<<"01. number of reads:                             "<<reads<<"\n";
+cout<<"02. number of read misses:                       "<<readMisses<<"\n";
+cout<<"03. number of writes:                            "<<writes<<"\n";
+cout<<"04. number of write misses:                      "<<writeMisses<<"\n";
+cout<<"05. number of write backs:                       "<<writeBacks<<"\n";
+cout<<"06. number of invalid to exclusive (INV->EXC):   "<<inv2exc<<"\n";
+cout<<"07. number of invalid to shared (INV->SHD):      "<<inv2shd<<"\n";
+cout<<"08. number of modified to shared (MOD->SHD):     "<<mod2shd<<"\n";
+cout<<"09. number of exclusive to shared (EXC->SHD):    "<<exc2shd<<"\n";
+cout<<"10. number of shared to modified (SHD->MOD):     "<<shd2mod<<"\n";
+cout<<"11. number of invalid to modified (INV->MOD):    "<<inv2mod<<"\n";
+cout<<"12. number of exclusive to modified (EXC->MOD):  "<<exc2mod<<"\n";
+cout<<"13. number of owned to modified (OWN->MOD):      "<<own2mod<<"\n";
+cout<<"14. number of modified to owned (MOD->OWN):      "<<mod2own<<"\n";
+cout<<"15. number of shared to invalid (SHD->INV):      "<<shd2inv<<"\n";
+cout<<"16. number of cache to cache transfers:          "<<c2c<<"\n";
+cout<<"17. number of interventions:                     "<<interventions<<"\n";
+cout<<"18. number of invalidations:                     "<<invalidations<<"\n";
+cout<<"19. number of flushes:                           "<<flushCount<<"\n";
 }
 
 void Cache::snoop(ulong addr, BusOps busOp)

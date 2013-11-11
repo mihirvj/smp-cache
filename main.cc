@@ -14,7 +14,7 @@ using namespace std;
 
 #include "cache.h"
 
-MSI_Cache **caches;
+Cache **caches;
 
 int main(int argc, char *argv[])
 {
@@ -39,11 +39,27 @@ int main(int argc, char *argv[])
 	char *fname =  (char *)malloc(20);
  	fname = argv[6];
 
-        caches = new MSI_Cache*[num_processors];
+        caches = new Cache*[num_processors];
 
-	for(int i=0 ;i< num_processors;i++)
+	switch(protocol)
 	{
-		caches[i] = new MSI_Cache(cache_size, cache_assoc, blk_size);
+	case MSI:
+		for(int i=0 ;i< num_processors;i++)
+		{
+			caches[i] = new MSI_Cache(cache_size, cache_assoc, blk_size);
+		}
+	break;
+
+	case MESI:
+		for(int i=0; i< num_processors;i++)
+		{
+			caches[i] = new MESI_Cache(cache_size, cache_assoc, blk_size);
+		}
+	break;
+
+	case MOESI:
+
+	break;
 	}
 
 	//****************************************************//
@@ -122,4 +138,22 @@ void postOnBus(int senderId, ulong addr, BusOps busOp)
 
 		caches[i]->snoop(addr, busOp);
 	}
+}
+
+int copiesExist(int senderId, ulong addr)
+{
+	int numCaches = Cache::getNumCaches();
+
+	for(int i=0; i < numCaches; i++)
+	{
+		if(i == senderId)
+			continue;
+
+		cacheLine *line = caches[i]->findLine(addr);
+
+		if(line != NULL)
+			return 1;
+	}
+
+	return 0;
 }

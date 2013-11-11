@@ -20,10 +20,12 @@ enum BusOps
 {
 	BusRd = 0,
 	BusRdX,
+	BusUpgr,
 	Flush
 };
 
 void postOnBus(int senderId, ulong addr, BusOps busOp);
+int copiesExist(int senderId, ulong addr);
 
 /****add new states, based on the protocol****/
 enum{
@@ -31,6 +33,12 @@ enum{
 	MODIFIED,
 	SHARED,
 	EXCLUSIVE
+};
+
+enum{
+	MSI = 0,
+	MESI = 1,
+	MOESI = 2
 };
 
 class cacheLine 
@@ -62,6 +70,9 @@ protected:
    //******///
    //add coherence counters here///
    //******///
+   ulong inv2exc, inv2shd, mod2shd, exc2shd, shd2mod, inv2mod, exc2mod, own2mod, mod2own, shd2inv;
+   ulong c2c, interventions, invalidations;
+   ulong flushCount;
 
    cacheLine **cache;
    ulong calcTag(ulong addr)     { return (addr >> (log2Blk) );}
@@ -86,13 +97,13 @@ public:
 
    int getProcId() { return procId; }   
    void writeBack(ulong)   {writeBacks++;}
-   void Access(ulong,uchar);
+   virtual void Access(ulong,uchar);
    void printStats();
    void updateLRU(cacheLine *);
 
    static int getNumCaches() { return numCaches; }
 
-   void snoop(ulong addr, BusOps busOp);
+   virtual void snoop(ulong addr, BusOps busOp) = 0;
 
    //******///
    //add other functions to handle bus transactions///
@@ -103,14 +114,18 @@ public:
 class MSI_Cache: public Cache
 {
  public:
-	ulong inv2exc, inv2shd, mod2shd, exc2shd, shd2mod, inv2mod, exc2mod, own2mod, mod2own, shd2inv;
-	ulong c2c, interventions, invalidations;
-	ulong flushCount;
-
 	MSI_Cache(int,int,int);
 
 	void Access(ulong, uchar);
-	void printStats();
+	void snoop(ulong addr, BusOps busOp);
+};
+
+class MESI_Cache: public Cache
+{
+ public:
+	MESI_Cache(int,int,int);
+
+	void Access(ulong, uchar);
 	void snoop(ulong addr, BusOps busOp);
 };
 #endif

@@ -6,9 +6,9 @@ ERR = -Werror
 
 CFLAGS = $(OPT) $(WARN) $(ERR) $(INC) $(LIB)
 
-SIM_SRC = main.cc cache.cc msi.cc mesi.cc
+SIM_SRC = main.cc cache.cc msi.cc mesi.cc moesi.cc
 
-SIM_OBJ = main.o cache.o msi.o mesi.o
+SIM_OBJ = main.o cache.o msi.o mesi.o moesi.o
 
 all: smp_cache
 	@echo "Compilation Done ---> nothing else to make :) "

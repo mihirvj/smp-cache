@@ -10,15 +10,15 @@
 #include "cache.h"
 using namespace std;
 
-MSI_Cache::MSI_Cache(int s, int a, int b) : Cache(s, a, b)
+MOESI_Cache::MOESI_Cache(int s, int a, int b) : Cache(s, a, b)
 {
-	//inv2exc = inv2shd = mod2shd = exc2shd = shd2mod = inv2mod = exc2mod = own2mod = mod2own = shd2inv = c2c = interventions = invalidations = flushCount = 0;
+
 }
 
 /**you might add other parameters to Access()
 since this function is an entry point 
 to the memory hierarchy (i.e. caches)**/
-void MSI_Cache::Access(ulong addr,uchar op)
+void MOESI_Cache::Access(ulong addr,uchar op)
 {
 	currentCycle++;/*per cache global counter to maintain LRU order 
 			among cache ways, updated on every cache access*/
@@ -41,9 +41,18 @@ void MSI_Cache::Access(ulong addr,uchar op)
 		}
 		else
 		{
-			 newline->setFlags(SHARED);   
-			 inv2shd++;
-			 ::postOnBus(procId, addr, BusRd);
+			if(!copiesExist(procId, addr))
+			{
+				newline->setFlags(EXCLUSIVE);
+				inv2exc++;
+			}
+			else
+			{
+				newline->setFlags(SHARED);   
+			 	inv2shd++;
+			}
+
+			::postOnBus(procId, addr, BusRd);
 		}
 		
 	}
@@ -51,7 +60,6 @@ void MSI_Cache::Access(ulong addr,uchar op)
 	{
 		/**since it's a hit, update LRU and update dirty flag**/
 		updateLRU(line);
-	//	if(op == 'w') line->setFlags(MODIFIED);
 		
 		if(line->getFlags() == SHARED)
 		{
@@ -59,35 +67,73 @@ void MSI_Cache::Access(ulong addr,uchar op)
 			{
 				line->setFlags(MODIFIED);
 				shd2mod++;
-				::postOnBus(procId, addr, BusRdX);
+				::postOnBus(procId, addr, BusUpgr);
+			}
+		}
+
+		if(line->getFlags() == OWNED)
+		{
+			if(op == 'w')
+			{
+				line->setFlags(MODIFIED);
+				own2mod++;
+				::postOnBus(procId, addr, BusUpgr);
+			}
+		}
+
+		if(line->getFlags() == EXCLUSIVE)
+		{
+			if(op == 'w')
+			{
+				line->setFlags(MODIFIED);
+				exc2mod++;
+				// dont post anything
 			}
 		}
 	}
 }
 
-int MSI_Cache::snoop(ulong addr, BusOps busOp)
+void MOESI_Cache::snoop(ulong addr, BusOps busOp)
 {
    cacheLine *line = findLine(addr);
    
    if(line == NULL)
-        return 0;
+        return;
 
    switch(busOp)
    {
         case BusRd:
                 if(line->getFlags() == MODIFIED)
                 {
-                        line->setFlags(SHARED);
-                        mod2shd++;
-			flushCount++;
-			interventions++;
+                        line->setFlags(OWNED);
+                        mod2own++;
+			::flush(addr);
+			//flushCount++;
                 }
+		if(line->getFlags() == EXCLUSIVE)
+		{
+			line->setFlags(SHARED);
+			exc2shd++;
+			interventions++;
+			//::flush(addr); // optional
+		}
+		if(line->getFlags() == SHARED)
+		{
+			// optional flush
+		}
+
+		if(line->getFlags() == OWNED)
+		{
+			flushCount++;
+			::flush(addr);
+		}
         break;
         case BusRdX:
                 if(line->getFlags() == MODIFIED)
                 {
                         line->setFlags(INVALID);
 			flushCount++;
+			::flush(addr);
                 }
 		if(line->getFlags() == SHARED)
 		{
@@ -95,14 +141,42 @@ int MSI_Cache::snoop(ulong addr, BusOps busOp)
 			shd2inv++;
 			invalidations++;
 		}
+		if(line->getFlags() == EXCLUSIVE)
+		{
+			line->setFlags(INVALID);
+		}
 
+		if(line->getFlags() == OWNED)
+		{
+			line->setFlags(INVALID);
+			flushCount++;
+			invalidations++;
+			::flush(addr);
+		}
         break;
 	case Flush:
+		c2c++;
 	break;
 	case BusUpgr:
+		if(line->getFlags() == SHARED)
+		{
+			line->setFlags(INVALID);
+			invalidations++;
+			shd2inv++;
+			// dont flush optional
+		}
+		if(line->getFlags() == MODIFIED)
+		{
+			line->setFlags(INVALID);
+			//flushCount++;
+			//::flush(addr);
+		}
+		if(line->getFlags() == OWNED)
+		{
+			line->setFlags(INVALID);
+			// dont flush
+			invalidations++;
+		}
 	break;
    }
-
-   return 0;
 }
-

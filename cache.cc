@@ -147,7 +147,7 @@ cacheLine *Cache::fillLine(ulong addr)
    cacheLine *victim = findLineToReplace(addr);
    assert(victim != 0);
    if(victim->getFlags() == MODIFIED) writeBack(addr);
-    	
+   	
    tag = calcTag(addr);   
    victim->setTag(tag);
    victim->setFlags(SHARED);    

@@ -26,13 +26,15 @@ enum BusOps
 
 void postOnBus(int senderId, ulong addr, BusOps busOp);
 int copiesExist(int senderId, ulong addr);
+void flush(ulong addr);
 
 /****add new states, based on the protocol****/
 enum{
 	INVALID = 0,
 	MODIFIED,
 	SHARED,
-	EXCLUSIVE
+	EXCLUSIVE,
+	OWNED
 };
 
 enum{
@@ -103,7 +105,7 @@ public:
 
    static int getNumCaches() { return numCaches; }
 
-   virtual void snoop(ulong addr, BusOps busOp) = 0;
+   virtual int snoop(ulong addr, BusOps busOp) = 0;
 
    //******///
    //add other functions to handle bus transactions///
@@ -117,7 +119,7 @@ class MSI_Cache: public Cache
 	MSI_Cache(int,int,int);
 
 	void Access(ulong, uchar);
-	void snoop(ulong addr, BusOps busOp);
+	int snoop(ulong addr, BusOps busOp);
 };
 
 class MESI_Cache: public Cache
@@ -126,6 +128,15 @@ class MESI_Cache: public Cache
 	MESI_Cache(int,int,int);
 
 	void Access(ulong, uchar);
-	void snoop(ulong addr, BusOps busOp);
+	int snoop(ulong addr, BusOps busOp);
+};
+
+class MOESI_Cache: public Cache
+{
+ public:
+	MOESI_Cache(int, int, int);
+
+	void Access(ulong, uchar);
+	int snoop(ulong addr, BusOps busOp);
 };
 #endif

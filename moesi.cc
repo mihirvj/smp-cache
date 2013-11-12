@@ -10,7 +10,7 @@
 #include "cache.h"
 using namespace std;
 
-MESI_Cache::MESI_Cache(int s, int a, int b) : Cache(s, a, b)
+MOESI_Cache::MOESI_Cache(int s, int a, int b) : Cache(s, a, b)
 {
 
 }
@@ -18,7 +18,7 @@ MESI_Cache::MESI_Cache(int s, int a, int b) : Cache(s, a, b)
 /**you might add other parameters to Access()
 since this function is an entry point 
 to the memory hierarchy (i.e. caches)**/
-void MESI_Cache::Access(ulong addr,uchar op)
+void MOESI_Cache::Access(ulong addr,uchar op)
 {
 	currentCycle++;/*per cache global counter to maintain LRU order 
 			among cache ways, updated on every cache access*/
@@ -46,12 +46,10 @@ void MESI_Cache::Access(ulong addr,uchar op)
 				newline->setFlags(EXCLUSIVE);
 				inv2exc++;
 			}
-			else
+     			else
 			{
 				newline->setFlags(SHARED);   
 			 	inv2shd++;
-				//c2c++;
-				//interventions++;
 			}
 
 			::postOnBus(procId, addr, BusRd);
@@ -72,6 +70,17 @@ void MESI_Cache::Access(ulong addr,uchar op)
 				::postOnBus(procId, addr, BusUpgr);
 			}
 		}
+
+		if(line->getFlags() == OWNED)
+		{
+			if(op == 'w')
+			{
+				line->setFlags(MODIFIED);
+				own2mod++;
+				::postOnBus(procId, addr, BusUpgr);
+			}
+		}
+
 		if(line->getFlags() == EXCLUSIVE)
 		{
 			if(op == 'w')
@@ -84,24 +93,22 @@ void MESI_Cache::Access(ulong addr,uchar op)
 	}
 }
 
-int MESI_Cache::snoop(ulong addr, BusOps busOp)
+int MOESI_Cache::snoop(ulong addr, BusOps busOp)
 {
    cacheLine *line = findLine(addr);
    
-   int flushed = 0;
-
    if(line == NULL)
         return 0;
+
+   int flushed = 0;
 
    switch(busOp)
    {
         case BusRd:
                 if(line->getFlags() == MODIFIED)
                 {
-                        line->setFlags(SHARED);
-                        mod2shd++;
-			flushCount++;
-			interventions++;
+                        line->setFlags(OWNED);
+                        mod2own++;
 			//::flush(addr);
 			//flushed = 1;
                 }
@@ -110,13 +117,17 @@ int MESI_Cache::snoop(ulong addr, BusOps busOp)
 			line->setFlags(SHARED);
 			exc2shd++;
 			interventions++;
-			// optional flush
-			//::flush(addr);
-			//flushed = 1;
+			::flush(addr); // optional
+			flushed = 1;
 		}
 		if(line->getFlags() == SHARED)
 		{
 			// optional flush
+		}
+
+		if(line->getFlags() == OWNED)
+		{
+			flushCount++;
 			::flush(addr);
 			flushed = 1;
 		}
@@ -126,26 +137,28 @@ int MESI_Cache::snoop(ulong addr, BusOps busOp)
                 {
                         line->setFlags(INVALID);
 			flushCount++;
-			::flush(addr);
-			flushed = 1;
+		//	::flush(addr);
+		//	flushed = 1;
                 }
 		if(line->getFlags() == SHARED)
 		{
 			line->setFlags(INVALID);
 			shd2inv++;
 			invalidations++;
-			// optional flush
-			//::flush(addr);
-			//flushed = 1;
 		}
 		if(line->getFlags() == EXCLUSIVE)
 		{
 			line->setFlags(INVALID);
-			// optional flush
-			//::flush(addr);
-			//flushed = 1;
 		}
 
+		if(line->getFlags() == OWNED)
+		{
+			line->setFlags(INVALID);
+			flushCount++;
+			invalidations++;
+			::flush(addr);
+			flushed = 1;
+		}
         break;
 	case Flush:
 		c2c++;
@@ -161,13 +174,17 @@ int MESI_Cache::snoop(ulong addr, BusOps busOp)
 		if(line->getFlags() == MODIFIED)
 		{
 			line->setFlags(INVALID);
-			flushCount++;
+			//flushCount++;
 			//::flush(addr);
-			//flushed = 1;
+		}
+		if(line->getFlags() == OWNED)
+		{
+			line->setFlags(INVALID);
+			// dont flush
+			invalidations++;
 		}
 	break;
    }
 
    return flushed;
 }
-

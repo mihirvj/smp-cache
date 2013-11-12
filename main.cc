@@ -15,6 +15,7 @@ using namespace std;
 #include "cache.h"
 
 Cache **caches;
+uchar i_proc;
 
 int main(int argc, char *argv[])
 {
@@ -58,13 +59,16 @@ int main(int argc, char *argv[])
 	break;
 
 	case MOESI:
-
+		for(int i=0;i<num_processors;i++)
+		{
+			caches[i] = new MOESI_Cache(cache_size, cache_assoc, blk_size);
+		}
 	break;
 	}
 
 	//****************************************************//
-	printf("===== 506 SMP Simulator configuration =====\n");
-	cout<<"L1_SIZE:         "<<cache_size<<endl;
+	printf("===== 506 SMP Simulator Configuration =====\n");
+	cout<<"L1_SIZE:		"<<cache_size<<endl;
 	cout<<"L1_ASSOC:        "<<cache_assoc<<endl;
 	cout<<"L1_BLOCKSIZE:    "<<blk_size<<endl;
 	cout<<"NUMBER OF PROCESSORS:"<<num_processors<<endl;
@@ -94,7 +98,7 @@ int main(int argc, char *argv[])
        while ((read = getline(&line, &len, pFile)) != -1) {
            toks = strtok(line, " ");
 
-	   uchar i_proc = atoi(toks);
+	   i_proc = atoi(toks);
 
 	   toks = strtok(NULL, " ");
 
@@ -136,7 +140,8 @@ void postOnBus(int senderId, ulong addr, BusOps busOp)
 		if(i == senderId)
 			continue;
 
-		caches[i]->snoop(addr, busOp);
+		if(caches[i]->snoop(addr, busOp))
+			break;
 	}
 }
 
@@ -156,4 +161,9 @@ int copiesExist(int senderId, ulong addr)
 	}
 
 	return 0;
+}
+
+void flush(ulong addr)
+{
+	caches[i_proc]->snoop(addr, Flush);
 }

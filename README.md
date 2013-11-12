@@ -20,4 +20,4 @@ L1_ASSOC:                       8<br>
 L1_BLOCKSIZE:                   64<br>
 NUMBER OF PROCESSORS:           16<br>
 
-CGad_VALIDATION_<PROTO> and CGaw_VALIDATION_<PROTO>: ideal output for PROTO for above configuration
+CGad_VALIDATION_ <PROTO> and CGaw_VALIDATION_ <PROTO>: ideal output for PROTO for above configuration

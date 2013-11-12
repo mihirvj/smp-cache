@@ -13,6 +13,8 @@ cache.cc: working of a single cache<br>
 msi.cc  : working of MSI protocol<br>
 mesi.cc : working of MESI protocol<br>
 moesi.cc: working of MOESI protocol<br>
+smp_cache: executable
+
 
 proto.out: program output of <proto> for below configuration<br>
 L1_SIZE:                        32678<br>

@@ -8,16 +8,16 @@ multiprocessor caches.
 
 Please read MP_3.pdf for detailed problem description.
 
-files:
-cache.cc: working of a single cache
-msi.cc  : working of MSI protocol
-mesi.cc : working of MESI protocol
-moesi.cc: working of MOESI protocol
+files:<br>
+cache.cc: working of a single cache<br>
+msi.cc  : working of MSI protocol<br>
+mesi.cc : working of MESI protocol<br>
+moesi.cc: working of MOESI protocol<br>
 
-proto.out: program output of <proto> for below configuration
-L1_SIZE:                        32678
-L1_ASSOC:                       8
-L1_BLOCKSIZE:                   64
-NUMBER OF PROCESSORS:           16
+proto.out: program output of <proto> for below configuration<br>
+L1_SIZE:                        32678<br>
+L1_ASSOC:                       8<br>
+L1_BLOCKSIZE:                   64<br>
+NUMBER OF PROCESSORS:           16<br>
 
 CGad_VALIDATION_<PROTO> and CGaw_VALIDATION_<PROTO>: ideal output for PROTO for above configuration

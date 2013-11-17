@@ -180,7 +180,7 @@ cout<<"18. number of invalidations:                     "<<invalidations<<"\n";
 cout<<"19. number of flushes:                           "<<flushCount<<"\n";
 }
 
-void Cache::snoop(ulong addr, BusOps busOp)
+int Cache::snoop(ulong addr, BusOps busOp)
 {
-  
+	return -1;  
 }

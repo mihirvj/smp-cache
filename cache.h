@@ -133,6 +133,7 @@ class MESI_Cache: public Cache
 
 class MOESI_Cache: public Cache
 {
+
  public:
 	MOESI_Cache(int, int, int);
 

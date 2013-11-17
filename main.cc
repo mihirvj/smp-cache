@@ -31,7 +31,6 @@ int main(int argc, char *argv[])
 		 exit(0);
         }
 
-	/*****uncomment the next five lines*****/
 	int cache_size = atoi(argv[1]);
 	int cache_assoc= atoi(argv[2]);
 	int blk_size   = atoi(argv[3]);

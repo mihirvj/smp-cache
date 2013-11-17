@@ -128,6 +128,7 @@ int MESI_Cache::snoop(ulong addr, BusOps busOp)
 			flushCount++;
 			::flush(addr);
 			flushed = 1;
+			invalidations++;
                 }
 		if(line->getFlags() == SHARED)
 		{
@@ -141,6 +142,7 @@ int MESI_Cache::snoop(ulong addr, BusOps busOp)
 		if(line->getFlags() == EXCLUSIVE)
 		{
 			line->setFlags(INVALID);
+			invalidations++;
 			// optional flush
 			//::flush(addr);
 			//flushed = 1;
@@ -162,6 +164,7 @@ int MESI_Cache::snoop(ulong addr, BusOps busOp)
 		{
 			line->setFlags(INVALID);
 			flushCount++;
+			invalidations++;
 			//::flush(addr);
 			//flushed = 1;
 		}

@@ -1,5 +1,5 @@
 ===== 506 SMP Simulator Configuration =====
-L1_SIZE:		32678
+L1_SIZE:		32768
 L1_ASSOC:        8
 L1_BLOCKSIZE:    64
 NUMBER OF PROCESSORS:16
@@ -7,16 +7,16 @@ COHERENCE PROTOCOL:  MSI
 TRACE FILE:          CGad
 ===== Simulation results (Cache_0)	=====
 01. number of reads:                             631024
-02. number of read misses:                       4839
+02. number of read misses:                       3592
 03. number of writes:                            346576
-04. number of write misses:                      15651
-05. number of write backs:                       19186
+04. number of write misses:                      11377
+05. number of write backs:                       14190
 06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      4839
+07. number of invalid to shared (INV->SHD):      3592
 08. number of modified to shared (MOD->SHD):     0
 09. number of exclusive to shared (EXC->SHD):    0
-10. number of shared to modified (SHD->MOD):     3763
-11. number of invalid to modified (INV->MOD):    15651
+10. number of shared to modified (SHD->MOD):     3298
+11. number of invalid to modified (INV->MOD):    11377
 12. number of exclusive to modified (EXC->MOD):  0
 13. number of owned to modified (OWN->MOD):      0
 14. number of modified to owned (MOD->OWN):      0
@@ -27,12 +27,12 @@ TRACE FILE:          CGad
 19. number of flushes:                           0
 ===== Simulation results (Cache_1)	=====
 01. number of reads:                             1584
-02. number of read misses:                       149
+02. number of read misses:                       145
 03. number of writes:                            649
 04. number of write misses:                      13
-05. number of write backs:                       7
+05. number of write backs:                       3
 06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      149
+07. number of invalid to shared (INV->SHD):      145
 08. number of modified to shared (MOD->SHD):     0
 09. number of exclusive to shared (EXC->SHD):    0
 10. number of shared to modified (SHD->MOD):     21
@@ -41,18 +41,18 @@ TRACE FILE:          CGad
 13. number of owned to modified (OWN->MOD):      0
 14. number of modified to owned (MOD->OWN):      0
 15. number of shared to invalid (SHD->INV):      0
-16. number of cache to cache transfers:          0
+16. number of cache to cache transfers:          4
 17. number of interventions:                     0
 18. number of invalidations:                     0
 19. number of flushes:                           0
 ===== Simulation results (Cache_2)	=====
 01. number of reads:                             1579
-02. number of read misses:                       148
+02. number of read misses:                       145
 03. number of writes:                            649
 04. number of write misses:                      11
-05. number of write backs:                       8
+05. number of write backs:                       4
 06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      148
+07. number of invalid to shared (INV->SHD):      145
 08. number of modified to shared (MOD->SHD):     4
 09. number of exclusive to shared (EXC->SHD):    0
 10. number of shared to modified (SHD->MOD):     23
@@ -61,18 +61,18 @@ TRACE FILE:          CGad
 13. number of owned to modified (OWN->MOD):      0
 14. number of modified to owned (MOD->OWN):      0
 15. number of shared to invalid (SHD->INV):      6
-16. number of cache to cache transfers:          0
+16. number of cache to cache transfers:          4
 17. number of interventions:                     4
 18. number of invalidations:                     6
 19. number of flushes:                           4
 ===== Simulation results (Cache_3)	=====
 01. number of reads:                             1588
-02. number of read misses:                       147
+02. number of read misses:                       144
 03. number of writes:                            649
 04. number of write misses:                      13
-05. number of write backs:                       7
+05. number of write backs:                       3
 06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      147
+07. number of invalid to shared (INV->SHD):      144
 08. number of modified to shared (MOD->SHD):     4
 09. number of exclusive to shared (EXC->SHD):    0
 10. number of shared to modified (SHD->MOD):     22
@@ -81,18 +81,18 @@ TRACE FILE:          CGad
 13. number of owned to modified (OWN->MOD):      0
 14. number of modified to owned (MOD->OWN):      0
 15. number of shared to invalid (SHD->INV):      11
-16. number of cache to cache transfers:          0
+16. number of cache to cache transfers:          4
 17. number of interventions:                     4
 18. number of invalidations:                     11
 19. number of flushes:                           4
 ===== Simulation results (Cache_4)	=====
 01. number of reads:                             1589
-02. number of read misses:                       151
+02. number of read misses:                       147
 03. number of writes:                            649
 04. number of write misses:                      12
-05. number of write backs:                       7
+05. number of write backs:                       3
 06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      151
+07. number of invalid to shared (INV->SHD):      147
 08. number of modified to shared (MOD->SHD):     4
 09. number of exclusive to shared (EXC->SHD):    0
 10. number of shared to modified (SHD->MOD):     22
@@ -101,18 +101,18 @@ TRACE FILE:          CGad
 13. number of owned to modified (OWN->MOD):      0
 14. number of modified to owned (MOD->OWN):      0
 15. number of shared to invalid (SHD->INV):      16
-16. number of cache to cache transfers:          0
+16. number of cache to cache transfers:          4
 17. number of interventions:                     4
 18. number of invalidations:                     16
 19. number of flushes:                           4
 ===== Simulation results (Cache_5)	=====
 01. number of reads:                             1596
-02. number of read misses:                       154
+02. number of read misses:                       149
 03. number of writes:                            649
 04. number of write misses:                      12
-05. number of write backs:                       7
+05. number of write backs:                       3
 06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      154
+07. number of invalid to shared (INV->SHD):      149
 08. number of modified to shared (MOD->SHD):     4
 09. number of exclusive to shared (EXC->SHD):    0
 10. number of shared to modified (SHD->MOD):     22
@@ -121,79 +121,39 @@ TRACE FILE:          CGad
 13. number of owned to modified (OWN->MOD):      0
 14. number of modified to owned (MOD->OWN):      0
 15. number of shared to invalid (SHD->INV):      21
-16. number of cache to cache transfers:          0
+16. number of cache to cache transfers:          4
 17. number of interventions:                     4
 18. number of invalidations:                     21
 19. number of flushes:                           4
 ===== Simulation results (Cache_6)	=====
 01. number of reads:                             1595
-02. number of read misses:                       148
+02. number of read misses:                       144
 03. number of writes:                            649
 04. number of write misses:                      12
-05. number of write backs:                       8
+05. number of write backs:                       3
 06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      148
+07. number of invalid to shared (INV->SHD):      144
 08. number of modified to shared (MOD->SHD):     4
 09. number of exclusive to shared (EXC->SHD):    0
-10. number of shared to modified (SHD->MOD):     23
+10. number of shared to modified (SHD->MOD):     22
 11. number of invalid to modified (INV->MOD):    12
 12. number of exclusive to modified (EXC->MOD):  0
 13. number of owned to modified (OWN->MOD):      0
 14. number of modified to owned (MOD->OWN):      0
 15. number of shared to invalid (SHD->INV):      26
-16. number of cache to cache transfers:          0
+16. number of cache to cache transfers:          4
 17. number of interventions:                     4
 18. number of invalidations:                     26
 19. number of flushes:                           4
 ===== Simulation results (Cache_7)	=====
 01. number of reads:                             1583
-02. number of read misses:                       145
+02. number of read misses:                       141
 03. number of writes:                            649
 04. number of write misses:                      14
-05. number of write backs:                       8
+05. number of write backs:                       3
 06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      145
-08. number of modified to shared (MOD->SHD):     3
-09. number of exclusive to shared (EXC->SHD):    0
-10. number of shared to modified (SHD->MOD):     20
-11. number of invalid to modified (INV->MOD):    14
-12. number of exclusive to modified (EXC->MOD):  0
-13. number of owned to modified (OWN->MOD):      0
-14. number of modified to owned (MOD->OWN):      0
-15. number of shared to invalid (SHD->INV):      28
-16. number of cache to cache transfers:          0
-17. number of interventions:                     3
-18. number of invalidations:                     28
-19. number of flushes:                           3
-===== Simulation results (Cache_8)	=====
-01. number of reads:                             1596
-02. number of read misses:                       152
-03. number of writes:                            649
-04. number of write misses:                      12
-05. number of write backs:                       8
-06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      152
-08. number of modified to shared (MOD->SHD):     3
-09. number of exclusive to shared (EXC->SHD):    0
-10. number of shared to modified (SHD->MOD):     23
-11. number of invalid to modified (INV->MOD):    12
-12. number of exclusive to modified (EXC->MOD):  0
-13. number of owned to modified (OWN->MOD):      0
-14. number of modified to owned (MOD->OWN):      0
-15. number of shared to invalid (SHD->INV):      28
-16. number of cache to cache transfers:          0
-17. number of interventions:                     3
-18. number of invalidations:                     28
-19. number of flushes:                           3
-===== Simulation results (Cache_9)	=====
-01. number of reads:                             1593
-02. number of read misses:                       147
-03. number of writes:                            649
-04. number of write misses:                      14
-05. number of write backs:                       8
-06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      147
-08. number of modified to shared (MOD->SHD):     3
+07. number of invalid to shared (INV->SHD):      141
+08. number of modified to shared (MOD->SHD):     4
 09. number of exclusive to shared (EXC->SHD):    0
 10. number of shared to modified (SHD->MOD):     20
 11. number of invalid to modified (INV->MOD):    14
@@ -201,18 +161,58 @@ TRACE FILE:          CGad
 13. number of owned to modified (OWN->MOD):      0
 14. number of modified to owned (MOD->OWN):      0
 15. number of shared to invalid (SHD->INV):      31
-16. number of cache to cache transfers:          0
-17. number of interventions:                     3
+16. number of cache to cache transfers:          4
+17. number of interventions:                     4
 18. number of invalidations:                     31
+19. number of flushes:                           4
+===== Simulation results (Cache_8)	=====
+01. number of reads:                             1596
+02. number of read misses:                       147
+03. number of writes:                            649
+04. number of write misses:                      12
+05. number of write backs:                       3
+06. number of invalid to exclusive (INV->EXC):   0
+07. number of invalid to shared (INV->SHD):      147
+08. number of modified to shared (MOD->SHD):     3
+09. number of exclusive to shared (EXC->SHD):    0
+10. number of shared to modified (SHD->MOD):     23
+11. number of invalid to modified (INV->MOD):    12
+12. number of exclusive to modified (EXC->MOD):  0
+13. number of owned to modified (OWN->MOD):      0
+14. number of modified to owned (MOD->OWN):      0
+15. number of shared to invalid (SHD->INV):      34
+16. number of cache to cache transfers:          3
+17. number of interventions:                     3
+18. number of invalidations:                     35
+19. number of flushes:                           4
+===== Simulation results (Cache_9)	=====
+01. number of reads:                             1593
+02. number of read misses:                       144
+03. number of writes:                            649
+04. number of write misses:                      14
+05. number of write backs:                       4
+06. number of invalid to exclusive (INV->EXC):   0
+07. number of invalid to shared (INV->SHD):      144
+08. number of modified to shared (MOD->SHD):     3
+09. number of exclusive to shared (EXC->SHD):    0
+10. number of shared to modified (SHD->MOD):     20
+11. number of invalid to modified (INV->MOD):    14
+12. number of exclusive to modified (EXC->MOD):  0
+13. number of owned to modified (OWN->MOD):      0
+14. number of modified to owned (MOD->OWN):      0
+15. number of shared to invalid (SHD->INV):      36
+16. number of cache to cache transfers:          3
+17. number of interventions:                     3
+18. number of invalidations:                     36
 19. number of flushes:                           3
 ===== Simulation results (Cache_10)	=====
 01. number of reads:                             1607
-02. number of read misses:                       151
+02. number of read misses:                       147
 03. number of writes:                            649
 04. number of write misses:                      13
-05. number of write backs:                       8
+05. number of write backs:                       4
 06. number of invalid to exclusive (INV->EXC):   0
-07. number of invalid to shared (INV->SHD):      151
+07. number of invalid to shared (INV->SHD):      147
 08. number of modified to shared (MOD->SHD):     3
 09. number of exclusive to shared (EXC->SHD):    0
 10. number of shared to modified (SHD->MOD):     21
@@ -220,10 +220,10 @@ TRACE FILE:          CGad
 12. number of exclusive to modified (EXC->MOD):  0
 13. number of owned to modified (OWN->MOD):      0
 14. number of modified to owned (MOD->OWN):      0
-15. number of shared to invalid (SHD->INV):      31
+15. number of shared to invalid (SHD->INV):      37
 16. number of cache to cache transfers:          0
 17. number of interventions:                     3
-18. number of invalidations:                     31
+18. number of invalidations:                     37
 19. number of flushes:                           3
 ===== Simulation results (Cache_11)	=====
 01. number of reads:                             0

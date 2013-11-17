@@ -1,0 +1,22 @@
+../smp_cache 1048576 8 64 16 1 ../CGaw > msi/msi-blk-4-cgaw.out
+../smp_cache 1048576 8 64 16 1 ../CGaw > msi/msi-blk-4-cgaw.out
+../smp_cache 1048576 8 64 16 1 ../CGaw > msi/msi-blk-8-cgaw.out
+../smp_cache 1048576 8 64 16 1 ../CGaw > msi/msi-blk-16-cgaw.out
+../smp_cache 1048576 8 64 16 1 ../CGad > msi/msi-blk-4-cgad.out
+../smp_cache 1048576 8 64 16 1 ../CGad > msi/msi-blk-8-cgad.out
+
+../smp_cache 1048576 8 64 16 1 ../CGad > mesi/mesi-blk-16-cgad.out
+../smp_cache 1048576 8 64 16 1 ../CGaw > mesi/mesi-blk-8-cgaw.out
+../smp_cache 1048576 8 64 16 1 ../CGaw > mesi/mesi-blk-16-cgaw.out
+../smp_cache 1048576 8 64 16 1 ../CGad > mesi/mesi-blk-4-cgad.out
+../smp_cache 1048576 8 64 16 1 ../CGad > mesi/mesi-blk-8-cgad.out
+../smp_cache 1048576 8 64 16 1 ../CGad > mesi/mesi-blk-16-cgad.out
+
+../smp_cache 1048576 8 64 16 2 ../CGaw > moesi/moesi-blk-4-cgaw.out
+../smp_cache 1048576 8 64 16 2 ../CGaw > moesi/moesi-blk-8-cgaw.out
+../smp_cache 1048576 8 64 16 2 ../CGaw > moesi/moesi-blk-16-cgaw.out
+../smp_cache 1048576 8 64 16 2 ../CGad > moesi/moesi-blk-4-cgad.out
+../smp_cache 1048576 8 64 16 2 ../CGad > moesi/moesi-blk-8-cgad.out
+../smp_cache 1048576 8 64 16 2 ../CGad > moesi/moesi-blk-16-cgad.out
+
+echo '-----------------Done for cache sizes-------------------'

@@ -81,6 +81,7 @@ int MSI_Cache::snoop(ulong addr, BusOps busOp)
                         mod2shd++;
 			flushCount++;
 			interventions++;
+			::flush(addr);
                 }
         break;
         case BusRdX:
@@ -88,6 +89,8 @@ int MSI_Cache::snoop(ulong addr, BusOps busOp)
                 {
                         line->setFlags(INVALID);
 			flushCount++;
+			::flush(addr);
+			invalidations++;
                 }
 		if(line->getFlags() == SHARED)
 		{
@@ -98,6 +101,7 @@ int MSI_Cache::snoop(ulong addr, BusOps busOp)
 
         break;
 	case Flush:
+		c2c++;
 	break;
 	case BusUpgr:
 	break;

@@ -12,7 +12,6 @@ using namespace std;
 
 MOESI_Cache::MOESI_Cache(int s, int a, int b) : Cache(s, a, b)
 {
-
 }
 
 /**you might add other parameters to Access()
@@ -109,7 +108,8 @@ int MOESI_Cache::snoop(ulong addr, BusOps busOp)
                 {
                         line->setFlags(OWNED);
                         mod2own++;
-			//::flush(addr);
+			//flushCount++; //mark
+			//::flush(addr); 
 			//flushed = 1;
                 }
 		if(line->getFlags() == EXCLUSIVE)
@@ -127,7 +127,7 @@ int MOESI_Cache::snoop(ulong addr, BusOps busOp)
 
 		if(line->getFlags() == OWNED)
 		{
-			flushCount++;
+			flushCount++; 
 			::flush(addr);
 			flushed = 1;
 		}
@@ -136,9 +136,10 @@ int MOESI_Cache::snoop(ulong addr, BusOps busOp)
                 if(line->getFlags() == MODIFIED)
                 {
                         line->setFlags(INVALID);
-			flushCount++;
-		//	::flush(addr);
-		//	flushed = 1;
+			flushCount++; 
+			::flush(addr);
+			flushed = 1;
+			invalidations++;
                 }
 		if(line->getFlags() == SHARED)
 		{
@@ -149,6 +150,7 @@ int MOESI_Cache::snoop(ulong addr, BusOps busOp)
 		if(line->getFlags() == EXCLUSIVE)
 		{
 			line->setFlags(INVALID);
+			invalidations++;
 		}
 
 		if(line->getFlags() == OWNED)
@@ -175,7 +177,9 @@ int MOESI_Cache::snoop(ulong addr, BusOps busOp)
 		{
 			line->setFlags(INVALID);
 			//flushCount++;
-			//::flush(addr);
+			::flush(addr); 
+			flushed = 1;
+			invalidations++;
 		}
 		if(line->getFlags() == OWNED)
 		{
